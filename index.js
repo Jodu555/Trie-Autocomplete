@@ -33,12 +33,18 @@ const ul = document.querySelector('#completions');
 
 
 input.addEventListener('keyup', () => {
-    const search = input.value;
+    const search = input.value.toLowerCase();
+    ul.innerHTML = '';
     if (!search) return;
 
     const n = getEndingNode(root, search);
     const words = complete(n);
-    console.log(words);
+
+    words.forEach(word => {
+        const li = document.createElement('li');
+        li.innerText = `(${search})${word}`;
+        ul.appendChild(li);
+    });
 });
 
 function complete(n, word = '') {
