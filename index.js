@@ -6,8 +6,6 @@ class Node {
 
 const root = new Node();
 
-
-
 function feed(node, text, idx = 0) {
     if (!text[idx]) return;
     let n;
@@ -28,5 +26,15 @@ async function run() {
     });
     console.log(root);
 }
+
+
+const input = document.querySelector('#autocomplete');
+const ul = document.querySelector('#completions');
+
+
+input.addEventListener('keyup', () => {
+    console.log(input.value);
+})
+
 
 run();
