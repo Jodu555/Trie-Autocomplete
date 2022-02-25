@@ -13,8 +13,8 @@ function feed(node, text, idx = 0) {
         n = node.childrens[text[idx]];
     } else {
         n = new Node();
-        node.childrens[text[idx]] = n;
     }
+    node.childrens[text[idx]] = n;
     feed(n, text, idx + 1)
 }
 
@@ -51,7 +51,8 @@ function complete(n, word = '') {
     let list = [];
     if (Object.keys(n.childrens).length == 0) return [word];
     Object.entries(n.childrens).forEach(([key, value]) => {
-        const appender = complete(value, word += key);
+        console.log(word, key);
+        const appender = complete(value, word + key);
         list = list.concat(appender);
     });
     return list;
