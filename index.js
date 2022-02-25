@@ -38,14 +38,15 @@ input.addEventListener('keyup', () => {
 
     const n = getEndingNode(root, search);
     const words = complete(n);
+    console.log(words);
 });
 
 function complete(n, word = '') {
-    const list = [];
-    if (n.childrens.length == 0) return [word];
+    let list = [];
+    if (Object.keys(n.childrens).length == 0) return [word];
     Object.entries(n.childrens).forEach(([key, value]) => {
-        const appender = complete(value, word += value);
-        list.concat(appender);
+        const appender = complete(value, word += key);
+        list = list.concat(appender);
     });
     return list;
 }
