@@ -23,7 +23,7 @@ function feed(node, text, idx = 0) {
 async function run() {
     const data = await (await fetch('data.json')).json();
     console.log('Start Inserting');
-    data.list.forEach(text => {
+    [...new Set(data.list)].forEach(text => {
         feed(root, text);
     });
     console.log(root);
