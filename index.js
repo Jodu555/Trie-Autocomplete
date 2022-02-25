@@ -21,7 +21,7 @@ function feed(node, text, idx = 0) {
 async function run() {
     const data = await (await fetch('data.json')).json();
     console.log('Start Inserting');
-    [...new Set(data.list)].forEach(text => {
+    [...new Set(data.list)].map(x => x.toLowerCase()).forEach(text => {
         feed(root, text);
     });
     console.log(root);
@@ -33,8 +33,27 @@ const ul = document.querySelector('#completions');
 
 
 input.addEventListener('keyup', () => {
-    console.log(input.value);
-})
+    const search = input.value;
+    if (!search) return;
+
+    const n = getEndingNode(root, search);
+    const words = complete(n);
+});
+
+function complete(n, word = '') {
+    const list = [];
+    if (n.childrens.length == 0) return [word];
+    Object.entries(n.childrens).forEach(([key, value]) => {
+        const appender = complete(value, word += value);
+        list.concat(appender);
+    });
+    return list;
+}
+
+function getEndingNode(node, search, idx = 0) {
+    const tmp = node.childrens[search[idx]];
+    return tmp ? getEndingNode(tmp, search, idx + 1) : node;
+}
 
 
 run();
