@@ -1,5 +1,6 @@
 class Node {
     constructor() {
+        this.ID = randID(5);
         this.childrens = {};
     }
 }
@@ -28,6 +29,13 @@ async function run() {
 }
 
 
+function randID(len = 2) {
+    let id = '';
+    Array.from(2).forEach(element => {
+        id += (Math.random() + 1).toString(36).substring(7);
+    });
+}
+
 const input = document.querySelector('#autocomplete');
 const ul = document.querySelector('#completions');
 
@@ -38,6 +46,7 @@ input.addEventListener('keyup', () => {
     if (!search) return;
 
     const n = getEndingNode(root, search);
+    if (n.ID == root.ID) return;
     const words = complete(n);
 
     words.forEach(word => {
@@ -64,4 +73,7 @@ function getEndingNode(node, search, idx = 0) {
 }
 
 
-run();
+feed(root, 'Hello')
+feed(root, 'Habubu')
+
+// run();
