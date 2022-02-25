@@ -1,10 +1,3 @@
-function randID(len = 2) {
-    let id = '';
-    for (let i = 0; i < len; i++) {
-        id += (Math.random() + 1).toString(36).substring(7);
-    }
-    return id;
-}
 class Node {
     constructor() {
         this.ID = randID(5);
@@ -35,10 +28,8 @@ async function run() {
     });
 }
 
-
 const input = document.querySelector('#autocomplete');
 const ul = document.querySelector('#completions');
-
 
 input.addEventListener('keyup', () => {
     const search = input.value.toLowerCase();
@@ -71,4 +62,13 @@ function getEndingNode(node, search, idx = 0) {
     const tmp = node.childrens[search[idx]];
     return tmp ? getEndingNode(tmp, search, idx + 1) : node;
 }
+
+function randID(len = 2) {
+    let id = '';
+    for (let i = 0; i < len; i++) {
+        id += (Math.random() + 1).toString(36).substring(7);
+    }
+    return id;
+}
+
 run();
