@@ -15,6 +15,7 @@ class Node {
 const root = new Node();
 
 function feed(node, text, idx = 0) {
+    text = text.toLowerCase();
     if (!text[idx]) return;
     let n;
     if (node.childrens[text[idx]]) {
@@ -32,10 +33,7 @@ async function run() {
     [...new Set(data.list)].map(x => x.toLowerCase()).forEach(text => {
         feed(root, text);
     });
-    console.log(root);
 }
-
-
 
 
 const input = document.querySelector('#autocomplete');
@@ -48,7 +46,6 @@ input.addEventListener('keyup', () => {
     if (!search) return;
 
     const n = getEndingNode(root, search);
-    console.log(n);
     if (n.ID == root.ID) return;
     const words = complete(n);
 
@@ -74,9 +71,4 @@ function getEndingNode(node, search, idx = 0) {
     const tmp = node.childrens[search[idx]];
     return tmp ? getEndingNode(tmp, search, idx + 1) : node;
 }
-
-
-feed(root, 'Hello')
-feed(root, 'Habubu')
-
-// run();
+run();
