@@ -20,6 +20,13 @@ function feed(node, text, idx = 0) {
     feed(n, text, idx + 1)
 }
 
-feed(root, 'Hello');
-feed(root, 'Habuba');
-console.log(root);
+async function run() {
+    const data = await (await fetch('data.json')).json();
+    console.log('Start Inserting');
+    data.list.forEach(text => {
+        feed(root, text);
+    });
+    console.log(root);
+}
+
+run();
